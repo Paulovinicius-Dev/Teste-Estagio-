@@ -1,0 +1,86 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 0 20px;
+    color: #222;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 18px;
+    margin-top: 32px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input[type="date"],
+input[type="text"] {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+#horarios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+#horarios button {
+    padding: 8px 14px;
+    border: 1px solid #0a7d5c;
+    border-radius: 4px;
+    background: white;
+    color: #0a7d5c;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#horarios button:hover {
+  background: #e6f4ef;
+}
+
+#horarios button.selecionado {
+  background: #0a7d5c;
+  color: white;
+}
+
+button[type="submit"] {
+  padding: 10px 16px;
+  background: #0a7d5c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button[type="submit"]:hover {
+  background: #086349;
+}
+
+#lista-agendamentos {
+  list-style: none;
+  padding: 0;
+}
+
+#lista-agendamentos li {
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
