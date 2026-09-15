@@ -6,6 +6,16 @@ import requests
 
 app = FastAPI()
 
+# Permissão para o navegador deixar o JS ler a resposta que voltou da api
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 def get_db ():
     conn = sqlite3.connect('agendamentos.db')
     conn.row_factory = sqlite3.Row # permite acessar colunas pelo nome 
