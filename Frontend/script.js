@@ -76,6 +76,8 @@ formAgendamento.addEventListener("submit", async (evento) => {
 });
 
 // Busca todos os agendamentos já feitos e desenha a lista na tela.
+// Mostra só o primeiro nome do paciente, não o nome completo — reduz
+// a exposição de dados pessoais numa lista visível publicamente.
 async function carregarAgendamentos() {
     const resposta = await fetch(`${API_URL}/appointments`);
     const agendamentos = await resposta.json();
@@ -83,7 +85,8 @@ async function carregarAgendamentos() {
     listaAgendamentos.innerHTML = "";
     agendamentos.forEach((ag) => {
         const item = document.createElement("li");
-        item.textContent = `${ag.date} às ${ag.time} — ${ag.patient_name}`;
+        const primeiroNome = ag.patient_name.split(" ")[0];
+        item.textContent = `${ag.date} às ${ag.time} — ${primeiroNome}`;
         listaAgendamentos.appendChild(item);
     });
 }
