@@ -127,4 +127,4 @@ def list_appointments():
 
     return [dict(row) for row in rows] # converte cada linha que vem em formato especial por causa do row_factory para um dicionario normal, para poder ser retornado como json
 
-http://127.0.0.1:8000/appointments
+

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charsetr="UTF-8">
+        <title>Agendamento - Clínica</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+        <h1>Agendar consulta</h1>
+
+        <label for="data">Escolha a data:</label>
+        <input type="date" id="data">
+
+        <div id="horarios"></div>"
+
+        <form id="form-agendamento">
+            <input type="text" id="nome-paciente" placeholder="Seu nome" required>
+            <button type="submit">Confirmar agendamento</button>
+        </form>
+        <h2>Agendamentos</h2>
+        <ul id="lista-agendamentos"></ul>
+
+        <script src="script.js"></script>
+    </body>
+</html>
