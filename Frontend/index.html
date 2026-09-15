@@ -1,26 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charsetr="UTF-8">
-        <title>Agendamento - Clínica</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento - Clínica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="app-header">
+            <h1>Agendamento — Clínica</h1>
+            <p class="subtitle">Escolha uma data para ver os horários disponíveis</p>
+        </header>
 
-        <h1>Agendar consulta</h1>
+        <section class="card">
+            <label for="data">Data da consulta</label>
+            <input type="date" id="data">
+            <div id="horarios" class="horarios-grid"></div>
+        </section>
 
-        <label for="data">Escolha a data:</label>
-        <input type="date" id="data">
+        <section class="card">
+            <h2>Confirmar agendamento</h2>
+            <form id="form-agendamento">
+                <input type="text" id="nome-paciente" placeholder="Seu nome" required>
+                <input type="hidden" id="horario-escolhido">
+                <button type="submit">Confirmar agendamento</button>
+            </form>
+        </section>
 
-        <div id="horarios"></div>"
+        <section class="card">
+            <h2>Agendamentos</h2>
+            <ul id="lista-agendamentos"></ul>
+        </section>
+    </div>
 
-        <form id="form-agendamento">
-            <input type="text" id="nome-paciente" placeholder="Seu nome" required>
-            <button type="submit">Confirmar agendamento</button>
-        </form>
-        <h2>Agendamentos</h2>
-        <ul id="lista-agendamentos"></ul>
-
-        <script src="script.js"></script>
-    </body>
+    <script src="script.js"></script>
+</body>
 </html>
