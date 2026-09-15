@@ -27,6 +27,9 @@ inputData.addEventListener("change", async () => {
         botao.type = "button";
         botao.textContent = horario;
         botao.addEventListener("click", () => {
+            document.querySelectorAll("#horarios button").forEach((b) => b.classList.remove("selecionado"));
+            inputHorarioEscolhido.value = horario;
+            botao.classList.add("selecionado");
         });
         divHorarios.appendChild(botao);
     })
@@ -65,3 +68,20 @@ formAgendamento.addEventListenner("submit", async (evento) => {
     inputHorarioEscolhido.value = "";
     inputData.dispatchEvent(new Event("change"));
 });
+
+const listaAgendamentos = document.getElementById("lista-agendamentos");
+
+async function carregarAgendamentos() {
+    const resposta = await fetch(`${API_URL}/appointments`);
+    const agendamentos = await resposta.json();
+
+    listaAgendamentos.innerHTML = "";
+    agendamentos.forEach((ag) => {
+        const item = document.createElement("li");
+        item.textContent = `${ag.date} às ${ag.time} — ${ag.patient_name}`;
+        listaAgendamentos.appendChild(item);
+    });
+    
+}
+
+carregarAgendamentos();
