@@ -3,8 +3,12 @@ const API_URL = "http://127.0.0.1:8000";
 const inputData = document.getElementById("data");
 const divHorarios = document.getElementById("horarios");
 const inputHorarioEscolhido = document.getElementById("horario-escolhido");
+const formAgendamento = document.getElementById("form-agendamento");
+const inputNome = document.getElementById("nome-paciente");
+const listaAgendamentos = document.getElementById("lista-agendamentos");
 
-// Quando o usuário escolhe uma data, busca os horários disponíveis 
+// Quando o usuário escolhe uma data, busca no backend os horários
+// disponíveis e desenha um botão pra cada um na tela.
 inputData.addEventListener("change", async () => {
     const data = inputData.value;
     const resposta = await fetch(`${API_URL}/available?date=${data}`);
@@ -16,7 +20,7 @@ inputData.addEventListener("change", async () => {
         divHorarios.textContent = "Não há atendimento nesta data (fim de semana ou feriado).";
         return;
     }
-    
+
     if (resultado.available_slots.length === 0) {
         divHorarios.textContent = "Não há horarios disponiveis nesta data.";
         return;
@@ -26,20 +30,21 @@ inputData.addEventListener("change", async () => {
         const botao = document.createElement("button");
         botao.type = "button";
         botao.textContent = horario;
+
+        // Ao clicar num horário, guarda ele no campo escondido do
+        // formulário e destaca visualmente só o botão escolhido.
         botao.addEventListener("click", () => {
             document.querySelectorAll("#horarios button").forEach((b) => b.classList.remove("selecionado"));
             inputHorarioEscolhido.value = horario;
             botao.classList.add("selecionado");
         });
+
         divHorarios.appendChild(botao);
     })
-
 })
 
-const formAgendamento = document.getElementById("form-agendamento");
-const inputNome = document.getElementById("nome-paciente");
-
-formAgendamento.addEventListenner("submit", async (evento) => {
+// Ao confirmar o formulário, envia o agendamento pro backend
+formAgendamento.addEventListener("submit", async (evento) => {
     evento.preventDefault();
 
     const data = inputData.value;
@@ -51,7 +56,7 @@ formAgendamento.addEventListenner("submit", async (evento) => {
         return;
     }
 
-    const resposta = await (`${API_URL}/appointments`, {
+    const resposta = await fetch(`${API_URL}/appointments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ date: data, time: horario, patient_name: nome }),
@@ -64,13 +69,13 @@ formAgendamento.addEventListenner("submit", async (evento) => {
     }
 
     alert("Agendamento confirmado!");
-    formAgendamento.requestFullscreen();
+    formAgendamento.reset();
     inputHorarioEscolhido.value = "";
-    inputData.dispatchEvent(new Event("change"));
+    inputData.dispatchEvent(new Event("change")); // atualiza os horários disponíveis
+    carregarAgendamentos(); 
 });
 
-const listaAgendamentos = document.getElementById("lista-agendamentos");
-
+// Busca todos os agendamentos já feitos e desenha a lista na tela.
 async function carregarAgendamentos() {
     const resposta = await fetch(`${API_URL}/appointments`);
     const agendamentos = await resposta.json();
@@ -81,7 +86,6 @@ async function carregarAgendamentos() {
         item.textContent = `${ag.date} às ${ag.time} — ${ag.patient_name}`;
         listaAgendamentos.appendChild(item);
     });
-    
 }
 
-carregarAgendamentos();
+carregarAgendamentos(); // roda assim que a página abre, mostrando o que já existe
