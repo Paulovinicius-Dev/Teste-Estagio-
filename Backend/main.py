@@ -127,11 +127,11 @@ def create_appointment(appointment: AppointmentCreate):
 
       }
     
-app.get("/appointments")
+@app.get("/appointments")
 def list_appointments():
     conn = get_db()
     rows = conn.execute(
-        "SELECT id, date, time, patient_name FROM appointments ORDER BY date, time" # volta a lista em ordem cronologica de data e horario
+        "SELECT id, date, time, patient_name FROM appointments ORDER BY date, time"
     ).fetchall()
     conn.close()    
 
